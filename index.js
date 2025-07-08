@@ -3,8 +3,6 @@ import { catsData } from "./data.js";
 const emotionRadios = document.querySelector("#emotion-radios");
 const getImageBtn = document.querySelector("#get-image-btn");
 
-emotionRadios.addEventListener("change", highlightCheckedOption);
-
 getImageBtn.addEventListener("click", getMatchingCatsArray);
 
 function getMatchingCatsArray(e) {
@@ -20,6 +18,8 @@ function highlightCheckedOption(e) {
 
     document.querySelector(`#${e.target.id}`).parentElement.classList.add('highlight');
 }
+
+emotionRadios.addEventListener("change", highlightCheckedOption);
 
 function getEmotionsArray(cats) {
     const emotionsArray = [];
