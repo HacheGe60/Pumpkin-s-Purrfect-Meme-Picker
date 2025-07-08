@@ -6,8 +6,10 @@ const getImageBtn = document.querySelector("#get-image-btn");
 getImageBtn.addEventListener("click", getMatchingCatsArray);
 
 function getMatchingCatsArray(e) {
-    const checkedRadio = document.querySelector('input[name="emotion"]:checked');
-    console.log(checkedRadio.value);
+    if (document.querySelector('input[name="emotion"]:checked')) {
+        const checkedRadio = document.querySelector('input[name="emotion"]:checked');
+        console.log(checkedRadio.value);
+    }
 }
 
 function highlightCheckedOption(e) {
