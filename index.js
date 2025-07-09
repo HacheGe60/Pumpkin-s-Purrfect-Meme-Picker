@@ -3,6 +3,8 @@ import { catsData } from "./data.js";
 const emotionRadios = document.querySelector("#emotion-radios");
 const getImageBtn = document.querySelector("#get-image-btn");
 const gifsOnlyOption = document.querySelector("#gifs-only-option");
+const memeModalInner = document.getElementById('meme-modal-inner');
+const memeModal = document.getElementById('meme-modal');
 
 emotionRadios.addEventListener("change", highlightCheckedOption);
 
@@ -46,7 +48,14 @@ function getSingleCatObject() {
 }
 
 function renderCat() {
-    getSingleCatObject(); // temporary
+    const catObject = getSingleCatObject();
+    memeModalInner.innerHTML = `
+        <img 
+        class="cat-img" 
+        src="./images/${catObject.image}"
+        alt="${catObject.alt}"
+        >`;
+    memeModal.style.display = 'flex';
 }
 
 function getEmotionsArray(cats) {
