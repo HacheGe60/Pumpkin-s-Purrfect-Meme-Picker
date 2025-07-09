@@ -4,38 +4,46 @@ const emotionRadios = document.querySelector("#emotion-radios");
 const getImageBtn = document.querySelector("#get-image-btn");
 const gifsOnlyOption = document.querySelector("#gifs-only-option");
 
-getImageBtn.addEventListener("click", getMatchingCatsArray);
+emotionRadios.addEventListener("change", highlightCheckedOption);
 
-function getMatchingCatsArray(e) {
-
-    const isGif = gifsOnlyOption.checked;
-    console.log(isGif);
-    if (document.querySelector('input[name="emotion"]:checked')) {
-        const selectedEmotion = document.querySelector('input[name="emotion"]:checked');
-        console.log(selectedEmotion.value);
-
-        const matchingCatsArray = catsData.filter(function (cat) {
-            return cat.emotionTags.includes(selectedEmotion.value);
-        });
-        console.log(matchingCatsArray);
-    }
-}
+getImageBtn.addEventListener("click", renderCat);
 
 function highlightCheckedOption(e) {
-    const radioArray = document.querySelectorAll(".radio");
-    for (const radio of radioArray) {
+    const radios = document.querySelectorAll(".radio");
+    for (let radio of radios) {
         radio.classList.remove('highlight');
     }
-
     document.querySelector(`#${e.target.id}`).parentElement.classList.add('highlight');
 }
 
-emotionRadios.addEventListener("change", highlightCheckedOption);
+function getMatchingCatsArray(e) {
+    if (document.querySelector('input[type="radio"]:checked')) {
+        const selectedEmotion = document.querySelector('input[name="emotion"]:checked').value;
+        const isGif = gifsOnlyOption.checked;
+
+        const matchingCatsArray = catsData.filter(function (cat) {
+
+            if (isGif) {
+                return cat.isGif && cat.emotionTags.includes(selectedEmotion);
+            } else {
+                return cat.emotionTags.includes(selectedEmotion);
+            }
+
+        });
+        return matchingCatsArray;
+    }
+}
+
+function getSingleCatObject() {
+}
+
+function renderCat() {
+}
 
 function getEmotionsArray(cats) {
     const emotionsArray = [];
-    for (const cat of cats) {
-        for (const emotion of cat.emotionTags) {
+    for (let cat of cats) {
+        for (let emotion of cat.emotionTags) {
             if (!emotionsArray.includes(emotion)) {
                 emotionsArray.push(emotion);
             } else {
@@ -47,17 +55,18 @@ function getEmotionsArray(cats) {
 }
 
 function renderEmotionsRadios(cats) {
-    let html = "";
+
+    let radioItems = ``;
     const emotions = getEmotionsArray(cats);
-    for (const emotion of emotions) {
-        html += `
+    for (let emotion of emotions) {
+        radioItems += `
         <div class="radio">
             <label for="${emotion}">${emotion}</label>
             <input type="radio" name="emotion" id="${emotion}" value="${emotion}">
         </div>
         `;
     }
-    emotionRadios.innerHTML = html;
+    emotionRadios.innerHTML = radioItems;
 }
 
 renderEmotionsRadios(catsData);
