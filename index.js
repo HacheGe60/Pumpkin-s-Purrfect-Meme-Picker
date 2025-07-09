@@ -38,10 +38,10 @@ function getSingleCatObject() {
     const catsArray = getMatchingCatsArray();
 
     if (catsArray.length === 1) {
-        console.log(catsArray[0]);
+        return catsArray[0];
     } else {
         const randomCatIndex = Math.floor(Math.random() * catsArray.length);
-        console.log(catsArray[randomCatIndex]);
+        return catsArray[randomCatIndex];
     }
 }
 
