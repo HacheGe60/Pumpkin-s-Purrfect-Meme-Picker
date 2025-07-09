@@ -35,9 +35,17 @@ function getMatchingCatsArray(e) {
 }
 
 function getSingleCatObject() {
+    const catsArray = getMatchingCatsArray();
+
+    if (catsArray.length === 1) {
+        console.log(catsArray[0]);
+    } else {
+
+    }
 }
 
 function renderCat() {
+    getSingleCatObject(); // temporary
 }
 
 function getEmotionsArray(cats) {
